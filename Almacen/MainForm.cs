@@ -3,17 +3,20 @@ using System.Drawing;
 using System.Windows.Forms;
 using Almacen.Forms;
 using Almacen.Data;
+using Almacen.Models;
 
 namespace Almacen
 {
     public partial class MainForm : Form
     {
         private DataManager dataManager;
+        private Usuario usuarioActual;
 
-        public MainForm()
+        public MainForm(Usuario usuario)
         {
             InitializeComponent();
             dataManager = DataManager.Instance;
+            usuarioActual = usuario;
             InicializarFormulario();
         }
 
@@ -44,11 +47,60 @@ namespace Almacen
             };
             panelPrincipal.Controls.Add(lblTitulo);
 
+            // Panel de información de usuario
+            var panelUsuario = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(230, 240, 250)
+            };
+            panelPrincipal.Controls.Add(panelUsuario);
+
+            var lblUsuario = new Label
+            {
+                Text = $"Usuario: {usuarioActual.NombreCompleto} ({usuarioActual.Tipo})",
+                Font = new Font("Arial", 10, FontStyle.Regular),
+                ForeColor = Color.FromArgb(25, 25, 112),
+                Location = new Point(20, 12),
+                AutoSize = true
+            };
+            panelUsuario.Controls.Add(lblUsuario);
+
+            var btnCerrarSesion = new Button
+            {
+                Text = "Cerrar Sesión",
+                Size = new Size(100, 25),
+                Location = new Point(this.Width - 130, 8),
+                BackColor = Color.FromArgb(178, 34, 34),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
+            };
+            btnCerrarSesion.Click += BtnCerrarSesion_Click;
+            panelUsuario.Controls.Add(btnCerrarSesion);
+
+            // Botón de gestión de usuarios (solo para administradores)
+            if (usuarioActual.Tipo == TipoUsuario.Administrador)
+            {
+                var btnUsuarios = new Button
+                {
+                    Text = "Usuarios",
+                    Size = new Size(80, 25),
+                    Location = new Point(this.Width - 240, 8),
+                    BackColor = Color.FromArgb(70, 130, 180),
+                    ForeColor = Color.White,
+                    FlatStyle = FlatStyle.Flat,
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right
+                };
+                btnUsuarios.Click += BtnUsuarios_Click;
+                panelUsuario.Controls.Add(btnUsuarios);
+            }
+
             // Panel para los botones
             var panelBotones = new Panel
             {
                 Size = new Size(500, 350),
-                Location = new Point((this.Width - 500) / 2, 120)
+                Location = new Point((this.Width - 500) / 2, 160)
             };
             panelPrincipal.Controls.Add(panelBotones);
 
@@ -102,7 +154,7 @@ namespace Almacen
             // Actualizar el layout cuando la ventana cambie de tamaño
             this.Resize += (s, e) =>
             {
-                panelBotones.Location = new Point((this.Width - 500) / 2, 120);
+                panelBotones.Location = new Point((this.Width - 500) / 2, 160);
                 panelInfo.Location = new Point((this.Width - 600) / 2, this.Height - 150);
                 lblEstadisticas.Text = ObtenerEstadisticas();
             };
@@ -147,6 +199,41 @@ namespace Almacen
 
             return $"Clientes: {totalClientes} | Productos: {totalProductos} | " +
                    $"Productos bajo stock: {productosBajoStock} | Ventas hoy: ${ventasHoy:F2}";
+        }
+
+        private void BtnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("¿Está seguro que desea cerrar sesión?", 
+                "Cerrar Sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
+            if (resultado == DialogResult.Yes)
+            {
+                this.Hide();
+                
+                var loginForm = new LoginForm();
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Actualizar usuario actual y mostrar formulario
+                    usuarioActual = loginForm.UsuarioAutenticado;
+                    this.Text = $"Sistema de Gestión de Almacén - {usuarioActual.NombreCompleto}";
+                    
+                    // Reinicializar el formulario con el nuevo usuario
+                    this.Controls.Clear();
+                    InicializarFormulario();
+                    this.Show();
+                }
+                else
+                {
+                    // Si se cancela el login, cerrar la aplicación
+                    Application.Exit();
+                }
+            }
+        }
+
+        private void BtnUsuarios_Click(object sender, EventArgs e)
+        {
+            var usuariosForm = new UsuariosForm();
+            usuariosForm.ShowDialog();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Almacen.Forms;
 
 namespace Almacen
 {
@@ -16,7 +17,20 @@ namespace Almacen
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            
+            // Mostrar formulario de login
+            var loginForm = new LoginForm();
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                // Si el login es exitoso, mostrar el formulario principal
+                var mainForm = new MainForm(loginForm.UsuarioAutenticado);
+                Application.Run(mainForm);
+            }
+            else
+            {
+                // Si se cancela el login, cerrar la aplicación
+                Application.Exit();
+            }
         }
     }
 }

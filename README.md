@@ -1,8 +1,16 @@
 # Sistema de Gestión de Almacén
 
-Una aplicación completa de gestión de almacén desarrollada en C# con Windows Forms que permite administrar clientes, productos, pedidos, ventas y control de stock.
+Una aplicación completa de gestión de almacén desarrollada en C# con Windows Forms que permite administrar clientes, productos, pedidos, ventas y control de stock. **Ahora incluye sistema de autenticación de usuarios con diferentes roles y permisos.**
 
 ## Características
+
+### 🔐 **Sistema de Usuarios y Autenticación** *(NUEVO)*
+- Login seguro con usuario y contraseña
+- Tres tipos de usuario: Administrador, Empleado, Vendedor
+- Control de acceso basado en roles
+- Gestión completa de usuarios (solo para administradores)
+- Seguimiento de último acceso
+- Activación/desactivación de usuarios
 
 ### 🏢 **Gestión de Clientes**
 - Agregar, editar y eliminar clientes
@@ -126,9 +134,17 @@ Almacen/
 
 ## Uso de la Aplicación
 
+### Login Inicial
+
+Al iniciar la aplicación, primero se mostrará la pantalla de login. Use las siguientes credenciales por defecto:
+
+- **Administrador**: usuario: `admin`, contraseña: `admin123`
+- **Empleado**: usuario: `empleado`, contraseña: `emp123`  
+- **Vendedor**: usuario: `vendedor`, contraseña: `vend123`
+
 ### Pantalla Principal
 
-Al iniciar la aplicación, verás el menú principal con 5 módulos:
+Después del login exitoso, verás el menú principal con 5 módulos:
 
 - **GESTIÓN DE CLIENTES** (Azul)
 - **GESTIÓN DE PRODUCTOS** (Verde)

@@ -15,6 +15,7 @@ namespace Almacen.Data
         public List<Producto> Productos { get; private set; }
         public List<Pedido> Pedidos { get; private set; }
         public List<Venta> Ventas { get; private set; }
+        public List<Usuario> Usuarios { get; private set; }
 
         // Contadores para IDs
         private int _nextClienteId = 1;
@@ -23,6 +24,7 @@ namespace Almacen.Data
         private int _nextVentaId = 1;
         private int _nextDetallePedidoId = 1;
         private int _nextDetalleVentaId = 1;
+        private int _nextUsuarioId = 1;
 
         private DataManager()
         {
@@ -30,6 +32,7 @@ namespace Almacen.Data
             Productos = new List<Producto>();
             Pedidos = new List<Pedido>();
             Ventas = new List<Venta>();
+            Usuarios = new List<Usuario>();
             
             InicializarDatosPrueba();
         }
@@ -87,6 +90,37 @@ namespace Almacen.Data
                 Stock = 3,
                 StockMinimo = 5,
                 Categoria = "Accesorios"
+            });
+
+            // Agregar usuarios de prueba
+            AgregarUsuario(new Usuario
+            {
+                NombreUsuario = "admin",
+                Contraseña = "admin123",
+                Nombre = "Administrador",
+                Apellido = "Sistema",
+                Email = "admin@almacen.com",
+                Tipo = TipoUsuario.Administrador
+            });
+
+            AgregarUsuario(new Usuario
+            {
+                NombreUsuario = "empleado1",
+                Contraseña = "emp123",
+                Nombre = "Carlos",
+                Apellido = "Rodriguez",
+                Email = "carlos@almacen.com",
+                Tipo = TipoUsuario.Empleado
+            });
+
+            AgregarUsuario(new Usuario
+            {
+                NombreUsuario = "vendedor1",
+                Contraseña = "vend123",
+                Nombre = "Ana",
+                Apellido = "Martinez",
+                Email = "ana@almacen.com",
+                Tipo = TipoUsuario.Vendedor
             });
         }
 
@@ -287,6 +321,72 @@ namespace Almacen.Data
                 .Where(c => c.Nombre.ToLower().Contains(texto) || 
                            c.Apellido.ToLower().Contains(texto) || 
                            c.Email.ToLower().Contains(texto))
+                .ToList();
+        }
+
+        // Métodos para Usuarios
+        public void AgregarUsuario(Usuario usuario)
+        {
+            usuario.Id = _nextUsuarioId++;
+            Usuarios.Add(usuario);
+        }
+
+        public void ActualizarUsuario(Usuario usuario)
+        {
+            var existente = Usuarios.FirstOrDefault(u => u.Id == usuario.Id);
+            if (existente != null)
+            {
+                existente.NombreUsuario = usuario.NombreUsuario;
+                existente.Contraseña = usuario.Contraseña;
+                existente.Nombre = usuario.Nombre;
+                existente.Apellido = usuario.Apellido;
+                existente.Email = usuario.Email;
+                existente.Tipo = usuario.Tipo;
+                existente.Activo = usuario.Activo;
+                existente.UltimoAcceso = usuario.UltimoAcceso;
+            }
+        }
+
+        public void EliminarUsuario(int id)
+        {
+            var usuario = Usuarios.FirstOrDefault(u => u.Id == id);
+            if (usuario != null)
+            {
+                Usuarios.Remove(usuario);
+            }
+        }
+
+        public Usuario ObtenerUsuario(int id)
+        {
+            return Usuarios.FirstOrDefault(u => u.Id == id);
+        }
+
+        public Usuario AutenticarUsuario(string nombreUsuario, string contraseña)
+        {
+            return Usuarios.FirstOrDefault(u => 
+                u.NombreUsuario.Equals(nombreUsuario, StringComparison.OrdinalIgnoreCase) && 
+                u.Contraseña == contraseña && 
+                u.Activo);
+        }
+
+        public bool ExisteNombreUsuario(string nombreUsuario, int? idExcluir = null)
+        {
+            return Usuarios.Any(u => 
+                u.NombreUsuario.Equals(nombreUsuario, StringComparison.OrdinalIgnoreCase) && 
+                (!idExcluir.HasValue || u.Id != idExcluir.Value));
+        }
+
+        public List<Usuario> BuscarUsuarios(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return Usuarios.ToList();
+
+            texto = texto.ToLower();
+            return Usuarios
+                .Where(u => u.NombreUsuario.ToLower().Contains(texto) || 
+                           u.Nombre.ToLower().Contains(texto) || 
+                           u.Apellido.ToLower().Contains(texto) || 
+                           u.Email.ToLower().Contains(texto))
                 .ToList();
         }
     }

